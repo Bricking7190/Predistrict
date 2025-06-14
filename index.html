@@ -2,32 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Predistrict - Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predistrict</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-      background-color: #f0f0f5;
-    }
-    header img {
-      max-width: 200px;
-    }
-    h1 {
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
       color: #333;
     }
-    p {
-      font-size: 1.2em;
-      color: #555;
+    header {
+      background: #0a0a23;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    header img {
+      max-width: 100px;
+      display: block;
+      margin: 0 auto 0.5rem;
+    }
+    nav {
+      background: #1a1a3d;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.75rem 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #0a0a23;
+    }
+    ol, ul {
+      padding-left: 1.5rem;
+    }
+    .plan {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: white;
+      border-radius: 6px;
+    }
+    .plan h3 {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
+
   <header>
     <img src="logo.png" alt="Predistrict Logo" />
+    <h1>Predistrict</h1>
+    <p>A community-driven, knowledge-based prediction platform</p>
   </header>
-  <h1>Welcome to Predistrict!</h1>
-  <p>Your go-to platform for knowledge-based tips and community forecasts.</p>
+
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#plans">Subscription Plans</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="features">
+    <h2>Features</h2>
+    <ul>
+      <li>Simple landing page with logo and project info</li>
+      <li>Community-driven prediction platform (coming soon)</li>
+      <li>Verified Authors and leaderboard system</li>
+    </ul>
+  </section>
+
+  <section id="how-it-works">
+    <h2>How It Works</h2>
+    <ol>
+      <li><strong>Subscribe:</strong> Choose a daily or weekly plan to receive prediction points.</li>
+      <li><strong>Predict:</strong> Use points to vote on questions created by the community.</li>
+      <li><strong>Rank Up:</strong> Earn more points by making accurate predictions and climb the leaderboard.</li>
+      <li><strong>Earn Rewards:</strong> The top 5 users win crypto prizes pooled from the entry fees of all participants (minus 10% platform fee).</li>
+    </ol>
+  </section>
+
+  <section id="plans">
+    <h2>Subscription Plans</h2>
+    <div class="plan">
+      <h3>Daily Plan</h3>
+      <p>🔹 Price: $1/day</p>
+      <p>🔹 10 prediction points every day</p>
+      <p>🔹 Compete in daily leaderboards</p>
+    </div>
+    <div class="plan">
+      <h3>Weekly Plan</h3>
+      <p>🔹 Price: $5/week</p>
+      <p>🔹 80 prediction points per week</p>
+      <p>🔹 Eligible for weekly crypto prize pools</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>For questions or collaborations, please contact us at <a href="mailto:your-email@example.com">your-email@example.com</a></p>
+  </section>
+
 </body>
 </html>
+
