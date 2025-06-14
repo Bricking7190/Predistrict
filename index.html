@@ -35,7 +35,6 @@
       }
     </style>
     <script>
-      // Countdown to next event (set to next Friday 20:00 UTC)
       function updateCountdown() {
         const now = new Date();
         const nextFriday = new Date();
@@ -51,7 +50,7 @@
     </script>
   </head>
   <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="max-w-4xl w-full space-y-8">
+    <div class="max-w-5xl w-full space-y-8">
       <header class="text-center fade-in">
         <h1 class="text-5xl font-bold text-yellow-300 drop-shadow-lg tracking-wide">Predistrict</h1>
         <p class="text-lg mt-2 text-gray-200">Community-powered prediction market platform</p>
@@ -63,26 +62,36 @@
       <main class="glass p-6 md:p-10 shadow-xl slide-in">
         <section class="space-y-6">
           <h2 class="text-3xl font-semibold text-yellow-200">Havi csomagok</h2>
-          <div class="grid md:grid-cols-2 gap-6">
+          <div class="grid md:grid-cols-3 gap-6">
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Starter</h3>
-              <p class="mt-2">$5/hó – 100 pont / hó (2 tipp)</p>
-              <p class="text-sm mt-1 text-gray-300">Belépőszint</p>
+              <p class="mt-2">$8/hó – 200 pont (4 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Belépő szint</p>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
+              <h3 class="text-2xl text-yellow-300">Explorer</h3>
+              <p class="mt-2">$12/hó – 350 pont (7 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Kezdő elemzőknek</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Challenger</h3>
-              <p class="mt-2">$10/hó – 250 pont / hó (5 tipp)</p>
+              <p class="mt-2">$18/hó – 600 pont (12 tipp)</p>
               <p class="text-sm mt-1 text-gray-300">Közösségi statisztikákhoz való hozzáférés</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Pro Analyst</h3>
-              <p class="mt-2">$20/hó – 600 pont / hó (12 tipp)</p>
-              <p class="text-sm mt-1 text-gray-300">Verified Author státusz, saját dashboard</p>
+              <p class="mt-2">$28/hó – 1000 pont (20 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Verified státusz, saját dashboard</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Elite Strategist</h3>
-              <p class="mt-2">$40/hó – 1300 pont / hó (26 tipp)</p>
+              <p class="mt-2">$40/hó – 1600 pont (32 tipp)</p>
               <p class="text-sm mt-1 text-gray-300">Pro badge + heti early insights</p>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
+              <h3 class="text-2xl text-yellow-300">Visionary</h3>
+              <p class="mt-2">$60/hó – 2600 pont (52 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Top rangsorhoz extra pontozás és mentor státusz</p>
             </div>
           </div>
         </section>
