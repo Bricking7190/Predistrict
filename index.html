@@ -1,179 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Predistrict</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f4;
-      color: #333;
-      scroll-behavior: smooth;
-    }
-
-    header {
-      background: linear-gradient(135deg, #0a0a23, #1a1a3d);
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-      animation: fadeIn 1s ease-out;
-    }
-    header img {
-      max-width: 120px;
-      margin-bottom: 1rem;
-      animation: bounceIn 1s ease-in;
-    }
-
-    nav {
-      background: #1a1a3d;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 0.75rem 0;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-    nav a:hover {
-      text-decoration: underline;
-      transform: scale(1.1);
-    }
-
-    section {
-      padding: 2.5rem 1rem;
-      max-width: 900px;
-      margin: auto;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUp 1s ease forwards;
-    }
-    section:nth-of-type(2) { animation-delay: 0.3s; }
-    section:nth-of-type(3) { animation-delay: 0.6s; }
-    section:nth-of-type(4) { animation-delay: 0.9s; }
-
-    h1, h2 {
-      color: #0a0a23;
-      margin-bottom: 1rem;
-    }
-    .plan {
-      background: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
-    }
-    .plan:hover {
-      transform: translateY(-5px);
-    }
-    .plan h3 {
-      margin-top: 0;
-    }
-
-    @keyframes slideUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predistrict - Community-Powered Prediction Market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+      body {
+        font-family: 'Orbitron', sans-serif;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+        color: #fff;
+        overflow-x: hidden;
       }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes bounceIn {
-      0% { transform: scale(0.5); opacity: 0; }
-      60% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); }
-    }
+      .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 1rem;
+      }
+      .fade-in {
+        animation: fadeIn 2s ease-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .slide-in {
+        animation: slideIn 2s ease-in-out;
+      }
+      @keyframes slideIn {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center min-h-screen p-4">
+    <div class="max-w-4xl w-full space-y-8">
+      <header class="text-center fade-in">
+        <h1 class="text-5xl font-bold text-yellow-300 drop-shadow-lg tracking-wide">Predistrict</h1>
+        <p class="text-lg mt-2 text-gray-200">Community-powered prediction market platform</p>
+      </header>
 
-    a {
-      color: #0a0a23;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
+      <main class="glass p-6 md:p-10 shadow-xl slide-in">
+        <section class="space-y-6">
+          <h2 class="text-3xl font-semibold text-yellow-200">Havi csomagok</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
+              <h3 class="text-2xl text-yellow-300">Starter</h3>
+              <p class="mt-2">$5/hó – 100 pont / hó (2 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Belépőszint</p>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
+              <h3 class="text-2xl text-yellow-300">Challenger</h3>
+              <p class="mt-2">$10/hó – 250 pont / hó (5 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Közösségi statisztikákhoz való hozzáférés</p>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
+              <h3 class="text-2xl text-yellow-300">Pro Analyst</h3>
+              <p class="mt-2">$20/hó – 600 pont / hó (12 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Verified Author státusz, saját dashboard</p>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
+              <h3 class="text-2xl text-yellow-300">Elite Strategist</h3>
+              <p class="mt-2">$40/hó – 1300 pont / hó (26 tipp)</p>
+              <p class="text-sm mt-1 text-gray-300">Pro badge + heti early insights</p>
+            </div>
+          </div>
+        </section>
 
-  <header>
-    <img src="logo.png" alt="Predistrict Logo" />
-    <h1>Predistrict</h1>
-    <p>A community-driven, knowledge-based prediction platform</p>
-  </header>
+        <section class="mt-10">
+          <h2 class="text-3xl font-semibold text-yellow-200">Emergency Boost</h2>
+          <p class="mt-2">$5 – 500 pont (10 tipp)</p>
+          <p class="text-sm text-gray-300">❗ Csak aktív havi előfizetés mellé vehető → ösztönzi a feliratkozást.</p>
+        </section>
 
-  <nav>
-    <a href="#features">Features</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="#plans">Pricing</a>
-    <a href="#contact">Contact</a>
-  </nav>
+        <section class="mt-10">
+          <h2 class="text-3xl font-semibold text-yellow-200">Kérdésbeküldés</h2>
+          <p class="mt-2">$10 / kérdés – közösségi tippeléshez</p>
+          <p class="text-sm text-gray-300">A kérdések szerzői Verified státuszt és statisztikát is kapnak.</p>
+        </section>
 
-  <section id="features">
-    <h2>Features</h2>
-    <ul>
-      <li>Community-driven prediction system</li>
-      <li>Leaderboard-based crypto rewards</li>
-      <li>Verified Authors & question pricing</li>
-      <li>Point-based system: 1 tip = 50 points</li>
-    </ul>
-  </section>
-
-  <section id="how-it-works">
-    <h2>How It Works</h2>
-    <ol>
-      <li><strong>Subscribe:</strong> Select a monthly plan to receive prediction points.</li>
-      <li><strong>Predict:</strong> Spend 50 points per tip to make your prediction.</li>
-      <li><strong>Climb:</strong> Gain points and rank by being accurate.</li>
-      <li><strong>Win:</strong> Top 5 ranked users win crypto rewards weekly (after 10% fee).</li>
-    </ol>
-  </section>
-
-  <section id="plans">
-    <h2>Pricing</h2>
-
-    <div class="plan">
-      <h3>Starter Plan</h3>
-      <p>🔹 $5/month — 100 points</p>
-      <p>Perfect for newcomers (2 tips per week)</p>
+        <section class="mt-10">
+          <h2 class="text-xl font-semibold text-yellow-200">💡 További infók</h2>
+          <ul class="list-disc list-inside text-gray-300 mt-2 space-y-1">
+            <li>1 tipp = 50 pont</li>
+            <li>Két versenyesemény hetente</li>
+            <li>Az első 5 helyezett kap nyereményt a többiek befizetéséből (10% üzemeltetői levonással)</li>
+            <li>Verified Author badge, kérdésstatisztikák, közösségi promóció opciók</li>
+          </ul>
+        </section>
+      </main>
     </div>
-
-    <div class="plan">
-      <h3>Competitor Plan</h3>
-      <p>🔹 $10/month — 250 points</p>
-      <p>Great for active participants (5 tips/week)</p>
-    </div>
-
-    <div class="plan">
-      <h3>Pro Plan</h3>
-      <p>🔹 $20/month — 600 points</p>
-      <p>Includes bonus features, Verified badge eligibility</p>
-    </div>
-
-    <div class="plan">
-      <h3>Emergency Points</h3>
-      <p>⚠️ Need extra points urgently?</p>
-      <p>💸 Buy 500 extra points for $5 (limit: 3/day)</p>
-      <p>📌 Available only to active subscribers</p>
-    </div>
-
-    <p><em>Note: 1 tip costs 50 points.</em></p>
-
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Have questions or ideas? Email us at <a href="mailto:team@predistrict.xyz">team@predistrict.xyz</a></p>
-  </section>
-
-</body>
+  </body>
 </html>
