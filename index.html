@@ -23,15 +23,33 @@
         animation: fadeIn 2s ease-out;
       }
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       .slide-in {
         animation: slideIn 2s ease-in-out;
       }
       @keyframes slideIn {
-        from { transform: translateX(-100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+        from {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      /* Optional: size the logo */
+      .logo {
+        width: 120px;
+        margin: 0 auto 1rem auto;
+        display: block;
       }
     </style>
     <script>
@@ -44,7 +62,7 @@
         const hours = Math.floor(diff / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById("countdown").innerText = `${hours}h ${minutes}m ${seconds}s`;
+        document.getElementById('countdown').innerText = `${hours}h ${minutes}m ${seconds}s`;
       }
       setInterval(updateCountdown, 1000);
     </script>
@@ -52,10 +70,11 @@
   <body class="flex items-center justify-center min-h-screen p-4">
     <div class="max-w-5xl w-full space-y-8">
       <header class="text-center fade-in">
+        <img src="logo.png" alt="Predistrict Logo" class="logo" />
         <h1 class="text-5xl font-bold text-yellow-300 drop-shadow-lg tracking-wide">Predistrict</h1>
         <p class="text-lg mt-2 text-gray-200">Community-powered prediction market platform</p>
         <div class="mt-4 text-yellow-200 text-xl">
-          ⏳ Next contest starts in: <span id="countdown">loading...</span>
+          ⏳ Next Competition Starts In: <span id="countdown">loading...</span>
         </div>
       </header>
 
@@ -65,33 +84,33 @@
           <div class="grid md:grid-cols-3 gap-6">
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Starter</h3>
-              <p class="mt-2">$8/month – 200 points (4 tips)</p>
+              <p class="mt-2">$8/mo – 200 points (4 tips)</p>
               <p class="text-sm mt-1 text-gray-300">Entry level</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Explorer</h3>
-              <p class="mt-2">$12/month – 350 points (7 tips)</p>
+              <p class="mt-2">$12/mo – 350 points (7 tips)</p>
               <p class="text-sm mt-1 text-gray-300">For beginner analysts</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Challenger</h3>
-              <p class="mt-2">$18/month – 600 points (12 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">Access to community statistics</p>
+              <p class="mt-2">$18/mo – 600 points (12 tips)</p>
+              <p class="text-sm mt-1 text-gray-300">Access to community stats</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Pro Analyst</h3>
-              <p class="mt-2">$28/month – 1000 points (20 tips)</p>
+              <p class="mt-2">$28/mo – 1000 points (20 tips)</p>
               <p class="text-sm mt-1 text-gray-300">Verified status, personal dashboard</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Elite Strategist</h3>
-              <p class="mt-2">$40/month – 1600 points (32 tips)</p>
+              <p class="mt-2">$40/mo – 1600 points (32 tips)</p>
               <p class="text-sm mt-1 text-gray-300">Pro badge + weekly early insights</p>
             </div>
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Visionary</h3>
-              <p class="mt-2">$60/month – 2600 points (52 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">Extra scoring for top ranks and mentor status</p>
+              <p class="mt-2">$60/mo – 2600 points (52 tips)</p>
+              <p class="text-sm mt-1 text-gray-300">Extra points for top ranking + mentor status</p>
             </div>
           </div>
         </section>
@@ -99,22 +118,22 @@
         <section class="mt-10">
           <h2 class="text-3xl font-semibold text-yellow-200">Emergency Boost</h2>
           <p class="mt-2">$5 – 500 points (10 tips)</p>
-          <p class="text-sm text-gray-300">❗ Only available with an active monthly subscription → encourages subscription.</p>
+          <p class="text-sm text-gray-300">❗ Available only with an active monthly subscription → encourages subscription.</p>
         </section>
 
         <section class="mt-10">
           <h2 class="text-3xl font-semibold text-yellow-200">Submit a Question</h2>
-          <p class="mt-2">$10 / question – for community tip sharing</p>
-          <p class="text-sm text-gray-300">Question authors also receive Verified status and statistics.</p>
+          <p class="mt-2">$10 / question – for community tipping</p>
+          <p class="text-sm text-gray-300">Question authors get Verified status and statistics.</p>
         </section>
 
         <section class="mt-10">
-          <h2 class="text-xl font-semibold text-yellow-200">💡 Additional Info</h2>
+          <h2 class="text-xl font-semibold text-yellow-200">💡 More info</h2>
           <ul class="list-disc list-inside text-gray-300 mt-2 space-y-1">
             <li>1 tip = 50 points</li>
             <li>Rewards for correct tips: 50 / 100 / 200 points (harder questions → bigger rewards)</li>
-            <li>Two contest events per week</li>
-            <li>Top 5 winners receive prizes from others’ payments (10% operator fee deducted)</li>
+            <li>Two competition events weekly</li>
+            <li>Top 5 winners receive prizes from other players' payments (10% operator fee deducted)</li>
             <li>Verified Author badge, question statistics, community promotion options</li>
           </ul>
         </section>
