@@ -34,12 +34,30 @@
         to { transform: translateX(0); opacity: 1; }
       }
     </style>
+    <script>
+      // Countdown to next event (set to next Friday 20:00 UTC)
+      function updateCountdown() {
+        const now = new Date();
+        const nextFriday = new Date();
+        nextFriday.setUTCHours(20, 0, 0, 0);
+        nextFriday.setUTCDate(now.getUTCDate() + ((5 - now.getUTCDay() + 7) % 7 || 7));
+        const diff = nextFriday - now;
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById("countdown").innerText = `${hours}h ${minutes}m ${seconds}s`;
+      }
+      setInterval(updateCountdown, 1000);
+    </script>
   </head>
   <body class="flex items-center justify-center min-h-screen p-4">
     <div class="max-w-4xl w-full space-y-8">
       <header class="text-center fade-in">
         <h1 class="text-5xl font-bold text-yellow-300 drop-shadow-lg tracking-wide">Predistrict</h1>
         <p class="text-lg mt-2 text-gray-200">Community-powered prediction market platform</p>
+        <div class="mt-4 text-yellow-200 text-xl">
+          ⏳ Következő verseny kezdete: <span id="countdown">betöltés...</span>
+        </div>
       </header>
 
       <main class="glass p-6 md:p-10 shadow-xl slide-in">
@@ -85,6 +103,7 @@
           <h2 class="text-xl font-semibold text-yellow-200">💡 További infók</h2>
           <ul class="list-disc list-inside text-gray-300 mt-2 space-y-1">
             <li>1 tipp = 50 pont</li>
+            <li>Helyes tippekért jutalom: 50 / 100 / 200 pont (nehezebb kérdések → nagyobb jutalom)</li>
             <li>Két versenyesemény hetente</li>
             <li>Az első 5 helyezett kap nyereményt a többiek befizetéséből (10% üzemeltetői levonással)</li>
             <li>Verified Author badge, kérdésstatisztikák, közösségi promóció opciók</li>
