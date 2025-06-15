@@ -1,141 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Predistrict - Community-Powered Prediction Market</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <style>
-      body {
-        font-family: 'Orbitron', sans-serif;
-        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-        color: #fff;
-        overflow-x: hidden;
-      }
-      .glass {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 1rem;
-      }
-      .fade-in {
-        animation: fadeIn 2s ease-out;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .slide-in {
-        animation: slideIn 2s ease-in-out;
-      }
-      @keyframes slideIn {
-        from {
-          transform: translateX(-100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-      .logo {
-        width: 120px;
-        margin: 0 auto 1rem auto;
-        display: block;
-      }
-    </style>
-    <script>
-      function updateCountdown() {
-        const now = new Date();
-        const nextFriday = new Date();
-        nextFriday.setUTCHours(20, 0, 0, 0);
-        nextFriday.setUTCDate(now.getUTCDate() + ((5 - now.getUTCDay() + 7) % 7 || 7));
-        const diff = nextFriday - now;
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById('countdown').innerText = `${hours}h ${minutes}m ${seconds}s`;
-      }
-      setInterval(updateCountdown, 1000);
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Predistrict - Community-Powered Prediction Market</title>
 
-      async function connectWallet() {
-        if (typeof window.ethereum !== 'undefined') {
-          try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            await provider.send("eth_requestAccounts", []);
-            const signer = provider.getSigner();
-            const address = await signer.getAddress();
+<!-- Google Fonts - Orbitron -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
 
-            document.getElementById('wallet-address').innerText = "Connected: " + address;
-            console.log("Wallet connected:", address);
+<!-- Tailwind CSS CDN -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
-            // Itt lenne a helye egy backend hitelesítésnek (nonce -> sign -> verify)
-          } catch (err) {
-            console.error("Connection error:", err);
-            alert("Connection failed. Please approve MetaMask request.");
-          }
-        } else {
-          alert("MetaMask not found. Please install it.");
-        }
+<!-- Ethers.js CDN for wallet interaction -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+<style>
+  body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+  }
+  .fade-in {
+    animation: fadeIn 2s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .slide-in {
+    animation: slideIn 2s ease-in-out forwards;
+  }
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  .logo {
+    width: 120px;
+    margin: 0 auto 1rem auto;
+    display: block;
+  }
+</style>
+
+<script>
+  // Countdown to next Friday 20:00 UTC
+  function updateCountdown() {
+    const now = new Date();
+    const nextFriday = new Date(now);
+
+    // Set time to 20:00 UTC
+    nextFriday.setUTCHours(20, 0, 0, 0);
+
+    // Calculate days till next Friday
+    const day = now.getUTCDay();
+    let daysUntilFriday = (5 - day + 7) % 7;
+    if (daysUntilFriday === 0 && now >= nextFriday) {
+      daysUntilFriday = 7; // if Friday 20:00 passed, set next week
+    }
+    nextFriday.setUTCDate(now.getUTCDate() + daysUntilFriday);
+
+    const diff = nextFriday - now;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('countdown').innerText = `${hours}h ${minutes}m ${seconds}s`;
+  }
+  setInterval(updateCountdown, 1000);
+  window.onload = updateCountdown;
+
+  // Connect to MetaMask wallet
+  async function connectWallet() {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+
+        document.getElementById('wallet-address').innerText = "Connected: " + address;
+
+        // TODO: Backend authentication with nonce + signature
+
+      } catch (error) {
+        console.error(error);
+        alert("Connection failed or rejected.");
       }
-    </script>
-  </head>
-  <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="max-w-5xl w-full space-y-8">
-      <header class="text-center fade-in">
-        <img src="logo.png" alt="Predistrict Logo" class="logo" />
-        <h1 class="text-5xl font-bold text-yellow-300 drop-shadow-lg tracking-wide">Predistrict</h1>
-        <p class="text-lg mt-2 text-gray-200">Community-powered prediction market platform</p>
-        <div class="mt-4 text-yellow-200 text-xl">
-          ⏳ Next Competition Starts In: <span id="countdown">loading...</span>
-        </div>
-      </header>
+    } else {
+      alert("MetaMask not found. Please install MetaMask extension.");
+    }
+  }
+</script>
+</head>
 
-      <main class="glass p-6 md:p-10 shadow-xl slide-in">
-        <section class="space-y-6">
-          <h2 class="text-3xl font-semibold text-yellow-200">Monthly Plans</h2>
-          <div class="grid md:grid-cols-3 gap-6">
-            <!-- Pricing cards -->
-            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
-              <h3 class="text-2xl text-yellow-300">Starter</h3>
-              <p class="mt-2">$8/month – 200 points (4 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">Entry level</p>
-            </div>
-            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
-              <h3 class="text-2xl text-yellow-300">Explorer</h3>
-              <p class="mt-2">$12/month – 350 points (7 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">For beginner analysts</p>
-            </div>
-            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
-              <h3 class="text-2xl text-yellow-300">Challenger</h3>
-              <p class="mt-2">$18/month – 600 points (12 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">Access to community stats</p>
-            </div>
-            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
-              <h3 class="text-2xl text-yellow-300">Pro Analyst</h3>
-              <p class="mt-2">$28/month – 1000 points (20 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">Verified status, personal dashboard</p>
-            </div>
-            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
-              <h3 class="text-2xl text-yellow-300">Elite Strategist</h3>
-              <p class="mt-2">$40/month – 1600 points (32 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">Pro badge + weekly early insights</p>
-            </div>
-            <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
-              <h3 class="text-2xl text-yellow-300">Visionary</h3>
-              <p class="mt-2">$60/month – 2600 points (52 tips)</p>
-              <p class="text-sm mt-1 text-gray-300">Extra points for top ranking + mentor status</p>
-            </div>
+<body class="flex items-center justify-center p-6">
+
+  <div class="max-w-5xl w-full space-y-10">
+
+    <!-- Header -->
+    <header class="text-center fade-in">
+      <img src="logo.png" alt="Predistrict Logo" class="logo" />
+      <h1 class="text-5xl font-bold text-yellow-300 drop-shadow-lg tracking-wide">Predistrict</h1>
+      <p class="text-lg mt-2 text-gray-200">Community-powered prediction market platform</p>
+      <div class="mt-4 text-yellow-200 text-xl">
+        ⏳ Next Competition Starts In: <span id="countdown">loading...</span>
+      </div>
+    </header>
+
+    <!-- Pricing Plans -->
+    <main class="glass p-8 md:p-12 shadow-xl slide-in">
+
+      <section class="space-y-8">
+
+        <h2 class="text-3xl font-semibold text-yellow-200">Monthly Plans</h2>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-6 bg-gray-900 rounded-xl border border-yellow-400">
+            <h3 class="text-2xl text-yellow-300">Starter</h3>
+            <p class="mt-2">$8/month – 200 points (4 tips)</p>
+            <p class="text-sm mt-1 text-gray-300">Entry level</p>
           </div>
-        </section>
+          <div class="p-6 bg-gray-900 rounded-xl border border-yellow-400">
+            <h3 class="text-2xl text-yellow-300">Explorer</h3>
+            <p class="mt-2">$12/month – 350 points (7 tips)</p>
+            <p class="text-sm mt-1 text-gray-300">For beginner analysts</p>
+          </div>
+          <div class="p-6 bg-gray-900 rounded-xl border border-yellow-400">
+            <h3 class="text-2xl text-yellow-300">Challenger</h3>
+            <p class="mt-2">$18/month – 600 points (12 tips)</p>
+            <p class="text-sm mt-1 text-gray-300">Access to community stats</p>
+          </div>
+          <div class="p-6 bg-gray-900 rounded-xl border border-yellow-400">
+            <h3 class="text-2xl text-yellow-300">Pro Analyst</h3>
+            <p class="mt-2">$28/month – 1000 points (20 tips)</p>
+            <p class="text-sm mt-1 text-gray-300">Verified status, personal dashboard</p>
+          </div>
+          <div class="p-6 bg-gray-900 rounded-xl border border-yellow-400">
+            <h3 class="text-2xl text-yellow-300">Elite Strategist</h3>
+            <p class="mt-2">$40/month – 1600 points (32 tips)</p>
+            <p class="text-sm mt-1 text-gray-300">Pro badge + weekly early insights</p>
+          </div>
+          <div class="p-6 bg-gray-900 rounded-xl border border-yellow-400">
+            <h3 class="text-2xl text-yellow-300">Visionary</h3>
+            <p class="mt-2">$60/month – 2600 points (52 tips)</p>
+            <p class="text-sm mt-1 text-gray-300">Extra points for top ranking + mentor status</p>
+          </div>
+        </div>
 
         <section class="mt-10">
           <h2 class="text-3xl font-semibold text-yellow-200">Emergency Boost</h2>
@@ -146,11 +175,11 @@
         <section class="mt-10">
           <h2 class="text-3xl font-semibold text-yellow-200">Submit a Question</h2>
           <p class="mt-2">$10 / question – for community tipping</p>
-          <p class="text-sm text-gray-300">Question authors get Verified status and statistics.</p>
+          <p class="text-sm text-gray-300">Question authors get Verified status and question statistics.</p>
         </section>
 
         <section class="mt-10">
-          <h2 class="text-xl font-semibold text-yellow-200">💡 More info</h2>
+          <h2 class="text-xl font-semibold text-yellow-200">💡 More Info</h2>
           <ul class="list-disc list-inside text-gray-300 mt-2 space-y-1">
             <li>1 tip = 50 points</li>
             <li>Rewards for correct tips: 50 / 100 / 200 points (harder questions → bigger rewards)</li>
@@ -163,13 +192,18 @@
         <section class="mt-10">
           <h2 class="text-3xl font-semibold text-yellow-200">🔐 Sign In with Wallet</h2>
           <div class="mt-4">
-            <button onclick="connectWallet()" class="bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-2 px-4 rounded-lg">
+            <button
+              onclick="connectWallet()"
+              class="bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-3 px-6 rounded-lg transition-colors duration-300"
+            >
               Connect MetaMask
             </button>
-            <p id="wallet-address" class="mt-2 text-sm text-green-300"></p>
+            <p id="wallet-address" class="mt-4 text-green-300 break-words"></p>
           </div>
         </section>
-      </main>
-    </div>
-  </body>
+
+      </section>
+    </main>
+  </div>
+</body>
 </html>
