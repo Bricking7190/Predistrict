@@ -6,6 +6,7 @@
     <title>Predistrict - Community-Powered Prediction Market</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
       body {
         font-family: 'Orbitron', sans-serif;
@@ -45,7 +46,6 @@
           opacity: 1;
         }
       }
-      /* Optional: size the logo */
       .logo {
         width: 120px;
         margin: 0 auto 1rem auto;
@@ -65,6 +65,27 @@
         document.getElementById('countdown').innerText = `${hours}h ${minutes}m ${seconds}s`;
       }
       setInterval(updateCountdown, 1000);
+
+      async function connectWallet() {
+        if (typeof window.ethereum !== 'undefined') {
+          try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await provider.send("eth_requestAccounts", []);
+            const signer = provider.getSigner();
+            const address = await signer.getAddress();
+
+            document.getElementById('wallet-address').innerText = "Connected: " + address;
+            console.log("Wallet connected:", address);
+
+            // Itt lenne a helye egy backend hitelesítésnek (nonce -> sign -> verify)
+          } catch (err) {
+            console.error("Connection error:", err);
+            alert("Connection failed. Please approve MetaMask request.");
+          }
+        } else {
+          alert("MetaMask not found. Please install it.");
+        }
+      }
     </script>
   </head>
   <body class="flex items-center justify-center min-h-screen p-4">
@@ -82,6 +103,7 @@
         <section class="space-y-6">
           <h2 class="text-3xl font-semibold text-yellow-200">Monthly Plans</h2>
           <div class="grid md:grid-cols-3 gap-6">
+            <!-- Pricing cards -->
             <div class="p-4 bg-gray-900 rounded-xl border border-yellow-400">
               <h3 class="text-2xl text-yellow-300">Starter</h3>
               <p class="mt-2">$8/month – 200 points (4 tips)</p>
@@ -136,6 +158,16 @@
             <li>Top 5 winners receive prizes from other players' payments (10% operator fee deducted)</li>
             <li>Verified Author badge, question statistics, community promotion options</li>
           </ul>
+        </section>
+
+        <section class="mt-10">
+          <h2 class="text-3xl font-semibold text-yellow-200">🔐 Sign In with Wallet</h2>
+          <div class="mt-4">
+            <button onclick="connectWallet()" class="bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-2 px-4 rounded-lg">
+              Connect MetaMask
+            </button>
+            <p id="wallet-address" class="mt-2 text-sm text-green-300"></p>
+          </div>
         </section>
       </main>
     </div>
